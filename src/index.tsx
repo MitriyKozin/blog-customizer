@@ -1,11 +1,9 @@
 import { createRoot } from 'react-dom/client';
-import { StrictMode, CSSProperties, useState } from 'react';
+import { StrictMode, CSSProperties, useState, useRef, useEffect } from 'react';
 import clsx from 'clsx';
-
 import { Article } from './components/article/Article';
 import { ArticleParamsForm } from './components/article-params-form/ArticleParamsForm';
 import { defaultArticleState, OptionType } from './constants/articleProps';
-
 import './styles/index.scss';
 import styles from './styles/index.module.scss';
 
@@ -22,35 +20,24 @@ const root = createRoot(domNode);
 
 const App = () => {
 
-	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [pageState, setPageState] = useState<IAllOptions>(defaultArticleState);
-
-	function toggleOpen() {
-		setIsOpen((oldVal) => !oldVal);
-	}
-
-	function handleClose() {
-		setIsOpen(false);
-	}
 
 	return (
 		<div
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': pageState.fontFamilyOption.value,  //defaultArticleState
+					'--font-family': pageState.fontFamilyOption.value,
 					'--font-size': pageState.fontSizeOption.value,
 					'--font-color': pageState.fontColor.value,
 					'--container-width': pageState.contentWidth.value,
-					'--bg-color': pageState.backgroundColor.value, //defaultArticleState
+					'--bg-color': pageState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm
-			toggleOpenFn={toggleOpen}
-			openState={isOpen}
+           <ArticleParamsForm
 			setPageState={setPageState}/>
-			<Article
-			  closeFn={handleClose}/>
+
+			<Article/>
 		</div>
 	);
 };
