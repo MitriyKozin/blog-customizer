@@ -34,6 +34,7 @@ const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({ setPageState }) =
 	}
 
 	useEffect(() => {
+		if (!isMenuOpen) return;
 	  function handleClickOutside(event: MouseEvent) {
 		if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
 		  setIsMenuOpen(false);
@@ -44,7 +45,7 @@ const ArticleParamsForm: React.FC<ArticleParamsFormProps> = ({ setPageState }) =
 	  return () => {
 		document.removeEventListener('mousedown', handleClickOutside);
 	  };
-	}, [menuRef]);
+	}, [menuRef, isMenuOpen]);
 	return (
 		<>
 			<ArrowButton toggleOpenFn={toggleOpen} openState={isMenuOpen} />
